@@ -15,7 +15,7 @@ import {
 import { publicLinks } from "@/lib/config";
 import { api } from "@/lib/api";
 export function ThemeToggle() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
   useEffect(() => {
     setDark(document.documentElement.dataset.theme === "dark");
   }, []);
