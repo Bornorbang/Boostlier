@@ -3204,9 +3204,6 @@ td {
   outline: 2px solid var(--green-dark);
   outline-offset: 3px;
 }
-@media (max-width: 800px) {
-  .number-service-layout .rental-table { min-width: 650px; }
-}
 
 .number-service-layout {
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3541,6 +3538,31 @@ td {
 .rental-table td[data-label="Country"] svg {
   width: 18px;
   height: 12px;
+}
+@media (max-width: 800px) {
+  .number-service-layout .rental-table {
+    width: max-content;
+    min-width: 100%;
+    table-layout: auto;
+    white-space: nowrap;
+  }
+  .number-service-layout .active-numbers-scroll .rental-table th { width: auto; }
+  .number-service-layout .rental-table th,
+  .number-service-layout .rental-table td {
+    padding: 9px 5px;
+    white-space: nowrap;
+  }
+  .number-service-layout .rental-table td[data-label="Service"] {
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .active-numbers-scroll .button.danger.small {
+    min-height: 26px;
+    padding: 4px 7px;
+    font-size: 10px;
+    line-height: 14px;
+  }
 }
 .number-copy {
   background: transparent;
