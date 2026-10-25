@@ -1676,6 +1676,15 @@ td {
   cursor: pointer;
 }
 .auth-agreement input:focus-visible { outline: 2px solid var(--green-dark); outline-offset: 3px; }
+/* Readable control text prevents mobile browsers from zooming on focus. */
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+  select,
+  textarea,
+  [contenteditable="true"] {
+    font-size: 16px !important;
+  }
+}
 .auth-google-button {
   display: grid;
   grid-template-columns: 20px 1fr 20px;
