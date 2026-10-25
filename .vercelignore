@@ -1,7 +1,0 @@
-backend/
-artifacts/
-tests/
-docs/
-.npm-cache/
-.env*
-!.env.example

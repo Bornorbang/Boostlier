@@ -1,4 +1,13 @@
 node_modules/
+/backend/
+/docs/
+/HANDOVER.md
+/docker-compose.yml
+/.vercelignore
+/tests/*
+!/tests/source.test.mjs
+!/tests/public-seo.mjs
+!/tests/public-redesign-browser.mjs
 .npm-cache/
 artifacts/
 .next/

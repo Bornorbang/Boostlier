@@ -30,13 +30,10 @@ test("Provider credentials are not referenced by frontend source", () => {
 });
 test("All required artefacts are present", () => {
   for (const file of [
-    "backend/migrations/001_core.sql",
-    "backend/.env.example",
     ".env.example",
     "public/icon.svg",
     "public/social-preview.svg",
     "src/app/openapi.json/route.ts",
-    "backend/bin/jobs.php",
   ])
     assert.ok(existsSync(file), file);
 });

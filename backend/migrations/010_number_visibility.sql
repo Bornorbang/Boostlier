@@ -1,1 +1,0 @@
-ALTER TABLE orders ADD COLUMN hidden_from_numbers INTEGER NOT NULL DEFAULT 0;

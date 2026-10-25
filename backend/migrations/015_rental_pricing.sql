@@ -1,1 +1,0 @@
-INSERT INTO settings (name,value,updated_at) VALUES ('long-term_pricing','{"currency":"USD","fx_numerator":1,"fx_denominator":1,"fx_mode":"fixed","fx_updated_at":"2026-10-19 00:00:00","retail_margin_pence":100,"wholesale_margin_pence":100,"rounding_pence":1}',CURRENT_TIMESTAMP);
