@@ -1,34 +1,19 @@
 # Boostlier
 
-The local project has two independent applications:
+Next.js frontend. Import this repository into Vercel with Root Directory `.` and framework Next.js.
 
-- `frontend/`: Next.js website, UI, public assets, frontend environment and Node dependencies.
-- `backend/`: PHP API, Composer dependencies, migrations, provider integrations and private storage.
+Install: `npm ci`
+Build: `npm run build`
+Development: `npm run dev`
 
-Only the frontend is tracked in this GitHub repository. The backend stays local for separate cPanel deployment.
+Configure Vercel environment variables:
 
-## Frontend
-
-Run commands from `frontend/`:
-
-```sh
-cd frontend
-npm ci
-npm run dev
+```dotenv
+NEXT_PUBLIC_SITE_URL=https://boostlier.com
+BACKEND_URL=https://app.boostlier.com
+BACKEND_PROXY_SECRET=YOUR_RANDOM_SHARED_SECRET
+IP_GEOLOCATION_PROVIDER=vercel
 ```
 
-Copy `.env.example` to `.env.local` and configure the separately hosted API.
-Verify with `npm run check` and `npm run build`.
-
-## Vercel
-
-Set **Root Directory** to **frontend**, framework **Next.js**. Use `npm ci` to install and `npm run build` to build.
-
-Configure these environment variables:
-
-- `NEXT_PUBLIC_SITE_URL`: frontend HTTPS URL, without a trailing slash.
-- `BACKEND_URL`: PHP API HTTPS URL, without a trailing slash.
-- `BACKEND_PROXY_SECRET`: same private shared secret as the backend.
-- `IP_GEOLOCATION_PROVIDER`: `vercel`.
-
-Provider and database credentials stay on the separately hosted backend.
+The backend is hosted separately on cPanel. Its document root must point to `backend/public`.
+Use the same private shared secret on both hosts. Provider and database credentials stay on cPanel.
