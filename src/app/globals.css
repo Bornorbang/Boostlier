@@ -1658,6 +1658,24 @@ td {
   right: 20px;
   top: 20px;
 }
+.auth-agreement {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-bottom: 20px;
+  font-size: 10px;
+  line-height: 1.7;
+  cursor: pointer;
+}
+.auth-agreement input {
+  width: 15px;
+  height: 15px;
+  margin-top: 1px;
+  flex-shrink: 0;
+  accent-color: var(--green-dark);
+  cursor: pointer;
+}
+.auth-agreement input:focus-visible { outline: 2px solid var(--green-dark); outline-offset: 3px; }
 .auth-google-button {
   display: grid;
   grid-template-columns: 20px 1fr 20px;

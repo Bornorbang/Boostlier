@@ -200,17 +200,20 @@ export function AuthForm({ action }: { action: string }) {
                 </div>
               )}
               {signup && (
-                <p style={{ fontSize: 10, marginBottom: 20 }}>
-                  By creating an account, you agree to our{" "}
-                  <Link className="auth-policy-link" href="/legal/terms">
-                    Terms
-                  </Link>{" "}
-                  and{" "}
-                  <Link className="auth-policy-link" href="/legal/privacy">
-                    Privacy policy
-                  </Link>
-                  .
-                </p>
+                <label className="auth-agreement">
+                  <input type="checkbox" name="terms_agreed" required />
+                  <span>
+                    I agree to the{" "}
+                    <Link className="auth-policy-link" href="/legal/terms">
+                      terms
+                    </Link>{" "}
+                    and{" "}
+                    <Link className="auth-policy-link" href="/legal/privacy">
+                      privacy policy
+                    </Link>
+                    .
+                  </span>
+                </label>
               )}
               <button
                 className="button"
