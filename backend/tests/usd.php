@@ -1,0 +1,28 @@
+<?php
+declare(strict_types=1);
+namespace TempNumber;
+putenv('DB_DSN=sqlite::memory:');putenv('APP_ENV=testing');
+require __DIR__.'/../src/bootstrap.php';foreach(['Wallet','Pricing','Payments','TempMail','Ads','Rentals','Providers','Commerce']as$f)require_once __DIR__.'/../src/'.$f.'.php';
+foreach(glob(__DIR__.'/../migrations/*.sql')as$f)if(!in_array(basename($f),['020_usd_currency.sql','021_boost_usd_rate.sql'],true))db()->exec(file_get_contents($f));
+$u=id();$o=id();$payment=id();$paid=id();
+query('INSERT INTO users (id,name,email,password_hash,referral_code,created_at) VALUES (?,?,?,?,?,?)',[$u,'USD QA','usd@example.invalid','unused',id(),now()]);query('INSERT INTO wallets (user_id,balance_pence,reserved_pence) VALUES (?,10000,400)',[$u]);
+query('INSERT INTO orders (id,user_id,provider,product,service,status,price_pence,price_tier,idempotency_key,request_hash,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',[$o,$u,'textverified','usa','QA','active',320,'retail',id(),id(),now(),now()]);
+query('INSERT INTO ledger (id,user_id,kind,amount_pence,balance_after_pence,reserved_after_pence,reference,description,created_at) VALUES (?,?,?,?,?,?,?,?,?)',[id(),$u,'purchase',-320,10000,400,'purchase:'.$o,'Original charged amount',now()]);
+foreach([$payment=>'pending',$paid=>'successful']as$id=>$status)query('INSERT INTO payments (id,user_id,provider,provider_reference,amount_pence,currency,status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?)',[$id,$u,'stripe','cs_'.$id,500,'GBP',$status,now(),now()]);
+query('INSERT INTO settings (name,value,updated_at) VALUES (?,?,?)',['service_prices','{"temp_mail_pence":70,"ads_pence":2000}',now()]);
+db()->exec(file_get_contents(__DIR__.'/../migrations/020_usd_currency.sql'));
+$count=0;function eq(mixed$a,mixed$b):void{if($a!==$b)throw new \RuntimeException(var_export($a,true).' !== '.var_export($b,true));}
+function test(string$name,callable$f):void{global$count;$f();$count++;echo "PASS $name\n";}
+function rejects(callable$f,string$code):void{try{$f();}catch(Problem$e){eq($e->key,$code);return;}throw new \RuntimeException('Expected '.$code);}
+test('Migration preserves existing balances and reserved funds numerically',function()use($u){eq(Wallet::balance($u)['currency'],'USD');eq(Wallet::balance($u)['balance_usd'],'96.00');eq(Wallet::balance($u)['reserved_usd'],'4.00');});
+test('USA and Global use direct USD rates plus exactly one dollar',function(){foreach(['textverified_pricing','5sim_pricing']as$key){$c=Pricing::setting($key);eq(Pricing::quote(250,$c),350);eq(Pricing::quote(250,$c,'wholesale'),350);eq($c['currency'],'USD');}});
+test('Long term rentals use direct USD rates plus one dollar fifty',fn()=>eq(Pricing::quote(240,Pricing::setting('long-term_pricing')),390));
+test('Temporary email is one dollar while an existing custom ad price is preserved',function(){eq(TempMail::price(),100);eq(Ads::price(),2000);});
+test('Boost uses the retained NGN conversion and doubles the converted supplier cost',function(){eq(Pricing::quote(250000,Pricing::setting('smm_pricing'),'retail',true),200);eq(Pricing::setting('smm_pricing')['currency'],'NGN');});
+test('Existing number refunds return the original charge once after new prices take effect',function()use($u,$o){$a=Rentals::settle($o,['status'=>'cancelled','authoritative'=>true,'no_sms_confirmed'=>true]);Rentals::settle($o,['status'=>'cancelled','authoritative'=>true,'no_sms_confirmed'=>true]);eq($a['refund_usd'],'3.20');eq((int)one("SELECT COUNT(*) AS n FROM ledger WHERE reference=?",['refund:'.$o])['n'],1);eq(Wallet::balance($u)['balance_usd'],'99.20');});
+test('Legacy pending checkout cannot silently become a USD wallet credit',function()use($payment,$u){eq(one('SELECT status FROM payments WHERE id=?',[$payment])['status'],'currency_review');rejects(fn()=>Payments::credit($payment,[]),'CURRENCY_REVIEW_REQUIRED');rejects(fn()=>Payments::verify($payment,$u),'CURRENCY_REVIEW_REQUIRED');});
+test('Legacy already paid callbacks are acknowledged without another wallet credit',function()use($paid,$u){$before=Wallet::balance($u);Payments::credit($paid,['id'=>'cs_'.$paid,'metadata'=>['payment_id'=>$paid,'user_id'=>$u],'client_reference_id'=>$paid,'currency'=>'gbp','amount_total'=>500,'payment_status'=>'paid']);eq(Wallet::balance($u),$before);});
+test('New payment rows default to USD and reject a non USD credit',function()use($u){$p=id();query('INSERT INTO payments (id,user_id,provider,amount_cents,status,created_at,updated_at) VALUES (?,?,?,?,?,?,?)',[$p,$u,'stripe',1000,'pending',now(),now()]);eq(one('SELECT currency FROM payments WHERE id=?',[$p])['currency'],'USD');$s=['id'=>'cs_'.$p,'metadata'=>['payment_id'=>$p,'user_id'=>$u],'client_reference_id'=>$p,'currency'=>'gbp','amount_total'=>1000,'payment_status'=>'paid'];rejects(fn()=>Payments::credit($p,$s),'PAYMENT_MISMATCH');$s['currency']='usd';Payments::credit($p,$s);Payments::credit($p,$s);eq((int)one("SELECT COUNT(*) AS n FROM ledger WHERE reference=?",['topup:'.$p])['n'],1);});
+test('Only USD cent columns remain in migrated financial tables',function(){foreach(['wallets','ledger','orders','payments','inboxes','reward_claims','smm_orders','ads']as$t)foreach(all('PRAGMA table_info('.$t.')')as$c)eq(str_contains($c['name'],'pence'),false);});
+test('Latest Boost rate converts NGN 1000 to USD 1 and sells it for USD 2',function(){db()->exec(file_get_contents(__DIR__.'/../migrations/021_boost_usd_rate.sql'));$c=Pricing::setting('smm_pricing');eq($c['fx_numerator'],1);eq($c['fx_denominator'],1000);eq($c['markup_basis_points'],10000);eq(Pricing::quote(100000,$c,'retail',true),200);eq(Pricing::quote(250000,$c,'retail',true),500);});
+echo "$count USD migration tests passed\n";

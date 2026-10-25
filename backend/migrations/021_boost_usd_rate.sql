@@ -1,0 +1,1 @@
+UPDATE settings SET value=JSON_SET(value,'$.fx_numerator',1,'$.fx_denominator',1000,'$.markup_basis_points',10000,'$.fx_mode','fixed','$.fx_updated_at',CURRENT_TIMESTAMP),updated_at=CURRENT_TIMESTAMP WHERE name='smm_pricing';

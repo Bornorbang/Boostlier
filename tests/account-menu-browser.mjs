@@ -1,0 +1,37 @@
+import { chromium } from 'playwright-core';
+import assert from 'node:assert/strict';
+const browser = await chromium.launch({executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',headless:true,args:['--disable-gpu']});
+try {
+ const context=await browser.newContext({viewport:{width:1440,height:1000}});
+ const page=await context.newPage();
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://localhost:3000/auth/signup');
+ await page.getByRole('textbox',{name:'Your name'}).fill('Account Menu QA');
+ await page.getByRole('textbox',{name:'Email address'}).fill(`menu-${Date.now()}@example.invalid`);
+ await page.getByLabel(/^Password/).fill(`Test-only-${Date.now()}-password`);
+ await page.getByRole('button',{name:'Create account',exact:true}).click();
+ await page.waitForURL('**/dashboard');await page.getByRole('heading',{name:/Hello/}).waitFor();
+ const sidebar=page.locator('.sidebar');
+ assert.doesNotMatch(await sidebar.innerText(),/YOUR SERVICES|Announcements|Rental history|Support centre|Account settings|Sign out|A little help|Get support/);
+ assert.doesNotMatch(await page.locator('.balance-chip').innerText(),/Wallet balance/);
+ const trigger=page.getByRole('button',{name:'Account menu',exact:true});
+ assert.match(await trigger.locator('img').getAttribute('src'),/^https:\/\/img.magnific.com\//);
+ await trigger.click();
+ assert.equal(await page.getByRole('menuitem').count(),3);
+ await page.keyboard.press('Escape');assert.equal(await trigger.getAttribute('aria-expanded'),'false');
+ await trigger.press('ArrowDown');assert.equal(await page.evaluate(()=>document.activeElement.textContent),'Profile');
+ await page.keyboard.press('ArrowDown');assert.equal(await page.evaluate(()=>document.activeElement.textContent),'Change Password');
+ await page.keyboard.press('Escape');await trigger.click();await page.locator('h1').click();
+ assert.equal(await trigger.getAttribute('aria-expanded'),'false');
+ await trigger.click();await page.getByRole('menuitem',{name:'Profile',exact:true}).click();await page.waitForURL('**/dashboard/profile');
+ await trigger.click();await page.getByRole('menuitem',{name:'Change Password'}).click();await page.waitForURL('**/dashboard/profile/change-password');
+ await page.getByRole('link',{name:'Announcements',exact:true}).click();await page.waitForURL('**/dashboard/announcements');
+ await page.setViewportSize({width:390,height:844});assert.ok(await trigger.isVisible());
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile page overflow');
+ await trigger.click();await page.screenshot({path:'artifacts/account-menu-mobile.png',fullPage:true});
+ const box=await page.getByRole('menu').boundingBox();assert.ok(box.x>=0&&box.x+box.width<=390);
+ await page.getByRole('menuitem',{name:'Sign Out',exact:true}).click();await page.waitForURL('**/auth/signin');
+ const me=await context.request.get('http://localhost:3000/api/backend/auth/me');assert.equal(me.status(),401);
+ assert.deepEqual(errors,[]);
+ console.log('PASS: sidebar cleanup, compact wallet, avatar, menu links, bell, keyboard/outside dismissal, mobile layout, and real logout');
+} finally { await browser.close(); }

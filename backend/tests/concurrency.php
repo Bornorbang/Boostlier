@@ -1,0 +1,12 @@
+<?php
+declare(strict_types=1);
+namespace TempNumber;
+if(($argv[1]??'')==='worker'){
+ require __DIR__.'/../src/bootstrap.php';require __DIR__.'/../src/Wallet.php';$uid=$argv[2];$reference=$argv[3];$amount=(int)$argv[4];
+ for($attempt=0;$attempt<25;$attempt++){try{$changed=tx(fn()=>Wallet::change($uid,'purchase',-$amount,$reference,'Concurrent test'));echo $changed?'charged':'replayed';exit(0);}catch(Problem $e){if($e->key==='INSUFFICIENT_FUNDS'){echo 'insufficient';exit(0);}if($e->key!=='WALLET_BUSY')throw $e;}catch(\PDOException $e){if(!str_contains($e->getMessage(),'locked')&&!str_contains($e->getMessage(),'busy'))throw $e;}usleep(random_int(1000,25000));}echo 'busy';exit(0);
+}
+$file=__DIR__.'/../storage/concurrency-'.bin2hex(random_bytes(8)).'.sqlite';putenv('DB_DSN=sqlite:'.$file);require __DIR__.'/../src/bootstrap.php';require __DIR__.'/../src/Wallet.php';foreach(glob(__DIR__.'/../migrations/*.sql')as$f)db()->exec(file_get_contents($f));$uid=id();query('INSERT INTO users (id,name,email,password_hash,referral_code,created_at) VALUES (?,?,?,?,?,?)',[$uid,'Concurrency QA','concurrency@example.invalid','unused',id(),now()]);query('INSERT INTO wallets (user_id,balance_cents) VALUES (?,1000)',[$uid]);
+function wave(string $uid,bool $sameKey,int $amount):void {$children=[];for($i=0;$i<12;$i++){$pipes=[];$process=proc_open([PHP_BINARY,__FILE__,'worker',$uid,$sameKey?'same-operation':id(),(string)$amount],[1=>['pipe','w'],2=>['pipe','w']],$pipes);$children[]=[$process,$pipes];}foreach($children as[$process,$pipes]){stream_get_contents($pipes[1]);$error=stream_get_contents($pipes[2]);fclose($pipes[1]);fclose($pipes[2]);if(proc_close($process)!==0)throw new \RuntimeException($error);}}
+wave($uid,false,200);$w=one('SELECT * FROM wallets WHERE user_id=?',[$uid]);$count=(int)one('SELECT COUNT(*) n FROM ledger WHERE user_id=?',[$uid])['n'];if((int)$w['balance_cents']!==0||$count!==5)throw new \RuntimeException('Overspend race failed: '.json_encode($w).', charges='.$count);echo "PASS 12 concurrent purchase attempts cannot overspend a USD wallet\n";
+tx(fn()=>Wallet::change($uid,'topup',1000,'test-recredit','Concurrency QA'));wave($uid,true,100);$w=one('SELECT * FROM wallets WHERE user_id=?',[$uid]);if((int)$w['balance_cents']!==900)throw new \RuntimeException('Duplicate charge race failed');echo "PASS 12 concurrent replays of one operation charge exactly once\n";
+// Test DB retained only in ignored backend/storage for inspection.

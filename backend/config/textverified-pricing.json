@@ -1,0 +1,9 @@
+{
+  "currency": "USD",
+  "fx_numerator": 1,
+  "fx_denominator": 1,
+  "fx_mode": "fixed",
+  "retail_margin_cents": 100,
+  "wholesale_margin_cents": 100,
+  "rounding_cents": 1
+}
