@@ -5,12 +5,12 @@ export function ServiceChoices({ dashboard = false }: { dashboard?: boolean }) {
     <div className="service-pillars" aria-label="Boostlier main services">
       {[
         {
-          name: "Boost Account",
+          name: "Boost Socials",
           eyebrow: "SOCIAL ACCOUNT PROMOTION",
           description: "Social promotion for your account, post or video.",
           Icon: Zap,
           href: dashboard ? "/boost-account/new-order" : "/social-boosting",
-          action: dashboard ? "Boost an account" : "Explore Boost Account",
+          action: dashboard ? "Boost socials" : "Explore Boost Socials",
           links: dashboard
             ? [["Order history", "/boost-account/orders"]]
             : [["Browse promotion services", "/boost-account/new-order"]],

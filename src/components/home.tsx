@@ -32,7 +32,7 @@ export function Home() {
           </p>
           <div className="hero-actions dual-actions">
             <OrderButton
-              label="Boost an account"
+              label="Boost socials"
               href="/boost-account/new-order"
             />
             <OrderButton label="Get a number" href="/dashboard/numbers" />
@@ -134,7 +134,7 @@ export function Home() {
         </div>
         <div>
           <h2>What’s your next move?</h2>
-          <p>Boost an account. Rent a number. Start with Boostlier.</p>
+          <p>Boost socials. Rent a number. Start with Boostlier.</p>
         </div>
         <OrderButton label="Get started" href="/dashboard" />
       </section>

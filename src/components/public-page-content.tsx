@@ -14,7 +14,7 @@ import { ApiDocs } from "./docs";
 
 const products = [
   {
-    title: "Boost Account",
+    title: "Boost Socials",
     text: "Pick a service and quantity for a current quote.",
     href: "/boost-account/new-order",
     Icon: Zap,

@@ -36,7 +36,7 @@ export function Footer() {
         </div>
         <div>
           <h3>Services</h3>
-          <Link href="/social-boosting">Boost Account</Link>
+          <Link href="/social-boosting">Boost Socials</Link>
           <Link href="/numbers">Numbers & SMS</Link>
           <Link href="/long-term-rentals">Long-term Rentals</Link>
           <Link href="/temporary-email">Temporary Emails</Link>

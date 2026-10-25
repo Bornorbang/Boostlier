@@ -190,7 +190,7 @@ function Legal({ privacy }: { privacy: boolean }) {
           <p>
             Number fulfilment uses TextVerified and 5sim. Hosted payment
             checkout is handled by Stripe or another configured payment
-            provider. Boost Account sends the selected social promotion service,
+            provider. Boost Socials sends the selected social promotion service,
             public target link and quantity to SMM Panel (app.smmpanel.ng) for
             fulfilment and status checks. Google sign-in, SMTP and temporary
             email providers are enabled only after configuration. Payment card

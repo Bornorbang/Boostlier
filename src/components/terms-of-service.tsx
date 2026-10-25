@@ -56,7 +56,7 @@ const sections = [
   },
   {
     id: "social-promotion",
-    title: "Boost Account and third-party platforms",
+    title: "Boost Socials and third-party platforms",
     paragraphs: [
       "Social promotion services vary in delivery speed, retention, refill eligibility and supported targets. No particular engagement, income, ranking, permanent follower count or platform outcome is guaranteed. Counts can change after delivery. A refill is available only when the chosen service offers it and its conditions are met.",
       "Check the public target URL and quantity before submitting. Current social promotion orders cannot be cancelled once submitted. An incorrect target, a private or deleted page, or a change to your username can prevent delivery. We will assess any requested remedy against the service description, evidence and applicable rights; a provider's decision does not override your mandatory rights against us.",

@@ -256,7 +256,7 @@ export const endpoints: Endpoint[] = [
     multipart: false,
   },
   {
-    group: "Boost Account",
+    group: "Boost Socials",
     method: "GET",
     path: "/api/v1/smm/catalogue",
     description:
@@ -266,7 +266,7 @@ export const endpoints: Endpoint[] = [
     multipart: false,
   },
   {
-    group: "Boost Account",
+    group: "Boost Socials",
     method: "POST",
     path: "/api/v1/smm/quote",
     description: "Server-calculated USD total for service and quantity.",
@@ -278,7 +278,7 @@ export const endpoints: Endpoint[] = [
     multipart: false,
   },
   {
-    group: "Boost Account",
+    group: "Boost Socials",
     method: "POST",
     path: "/api/v1/smm/purchase",
     description:
@@ -293,7 +293,7 @@ export const endpoints: Endpoint[] = [
     multipart: false,
   },
   {
-    group: "Boost Account",
+    group: "Boost Socials",
     method: "GET",
     path: "/api/v1/smm/orders",
     description: "Owned social orders plus pending submissions.",
@@ -305,7 +305,7 @@ export const endpoints: Endpoint[] = [
     multipart: false,
   },
   {
-    group: "Boost Account",
+    group: "Boost Socials",
     method: "POST",
     path: "/api/v1/smm/status",
     description:
@@ -317,7 +317,7 @@ export const endpoints: Endpoint[] = [
     multipart: false,
   },
   {
-    group: "Boost Account",
+    group: "Boost Socials",
     method: "POST",
     path: "/api/v1/smm/refill",
     description:
@@ -329,7 +329,7 @@ export const endpoints: Endpoint[] = [
     multipart: false,
   },
   {
-    group: "Boost Account",
+    group: "Boost Socials",
     method: "POST",
     path: "/api/v1/smm/refill-status",
     description:

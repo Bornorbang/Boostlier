@@ -180,7 +180,7 @@ export function NumbersDashboard() {
     <>
       <Title
         title="USA Numbers"
-        description="Choose a service, get a US mobile number and receive your verification SMS here."
+        description="Choose a service, get a USA number and receive your OTP here."
       />
       <NumberTabs active="numbers" />
       {message && <Alert>{message}</Alert>}

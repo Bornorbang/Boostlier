@@ -98,7 +98,7 @@ export function ApiDocs() {
           . Quotes expire after 120 seconds.
         </p>
         <p>
-          For long-term rentals and Boost Account, the purchase result id is the
+          For long-term rentals and Boost Socials, the purchase result id is the
           operation ID and resource_id is the confirmed rental/order ID.
           Long-term pending operations can be checked with
           /number-rentals/recover; social pending submissions appear in

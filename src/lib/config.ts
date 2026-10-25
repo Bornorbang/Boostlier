@@ -6,14 +6,14 @@ export const site = {
 };
 export const publicLinks = [
   ["Home", "/"],
-  ["Boost Account", "/social-boosting"],
+  ["Boost Socials", "/social-boosting"],
   ["Numbers", "/numbers"],
   ["Pricing", "/pricing"],
   ["Temporary Email", "/temporary-email"],
   ["API", "/developers"],
 ];
 export const dashboardLinks = [
-  ["Boost Account", "/boost-account/new-order", "boost"],
+  ["Boost Socials", "/boost-account/new-order", "boost"],
   ["USA Numbers", "/dashboard/numbers", "usa"],
   ["Global Numbers", "/dashboard/global", "globe"],
   ["Long-term Rentals", "/dashboard/rentals", "clock"],
@@ -30,7 +30,7 @@ export const faqs = [
     "Promote social accounts, get USA or Global SMS numbers, rent a number for longer, or generate a temporary email.",
   ],
   [
-    "How does Boost Account work?",
+    "How does Boost Socials work?",
     "Choose a service, enter your public link and quantity, then place and track your order from the dashboard.",
   ],
   [
@@ -54,8 +54,8 @@ export const faqs = [
     "Use Cancel when available and try another number. Eligible cancellations and no-SMS expiries are refunded to your wallet.",
   ],
   [
-    "Can I cancel a Boost Account order?",
-    "Boost Account orders cannot currently be cancelled. Check your target link, service and quantity before ordering.",
+    "Can I cancel a Boost Socials order?",
+    "Boost Socials orders cannot currently be cancelled. Check your target link, service and quantity before ordering.",
   ],
   [
     "Can I keep a number for account recovery?",

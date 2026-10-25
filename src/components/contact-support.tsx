@@ -24,7 +24,7 @@ const issues = [
   },
   {
     id: "boost",
-    title: "My Boost Account order is delayed",
+    title: "My Boost Socials order is delayed",
     answer:
       "Some Boost services can take 24 - 72 hours to complete. Your order will be completed in due time. Please allow the service time to process",
     reference: "Order reference or target link",

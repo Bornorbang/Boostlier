@@ -9,7 +9,6 @@ import {
   Info,
   RefreshCw,
   Search,
-  ShieldCheck,
 } from "lucide-react";
 import { api, ApiError } from "@/lib/api";
 import { date } from "@/lib/config";
@@ -485,8 +484,7 @@ export function Boost({ orders = false }: { orders?: boolean }) {
   return (
     <>
       <Title
-        title="Boost Account"
-        description="Choose your service. Set your quantity. Keep every order in one place."
+        title="Boost Socials"
       />
       <div className="tabs">
         <Link
@@ -738,9 +736,6 @@ export function Boost({ orders = false }: { orders?: boolean }) {
         <div className="boost-layout">
           <div className="boost-builder">
             <section className="panel">
-              <div className="panel-head">
-                <h3>Build your next boost</h3>
-              </div>
               {catalogueMessage && <Alert>{catalogueMessage}</Alert>}
               {catalogueError && (
                 <Alert kind="error">
@@ -795,7 +790,7 @@ export function Boost({ orders = false }: { orders?: boolean }) {
                     <Alert>{service.unavailable_reason}</Alert>
                   )}
                   <label className="field">
-                    <span>Public target link</span>
+                    <span>Link</span>
                     <input
                       name="target"
                       type="url"
@@ -831,11 +826,20 @@ export function Boost({ orders = false }: { orders?: boolean }) {
                       </small>
                     )}
                   </label>
+                  <label className="field">
+                    <span>Amount</span>
+                    <input
+                      type="text"
+                      value={currentQuote ? `$${currentQuote.price_usd}` : ""}
+                      placeholder={quoting ? "Calculating..." : "$0.00"}
+                      disabled
+                      aria-busy={quoting}
+                    />
+                  </label>
                   {quoteError && <Alert kind="error">{quoteError}</Alert>}
                   <div className="notice-inline">
                     <Info size={14} />
-                    Check your link and quantity carefully. Orders cannot be
-                    cancelled.
+                    Check all details carefully. Orders cannot be cancelled.
                   </div>
                 </form>
               )}
@@ -855,38 +859,6 @@ export function Boost({ orders = false }: { orders?: boolean }) {
               )}
             </button>
           </div>
-          <aside>
-            <section className="panel boost-summary">
-              <span className="eyebrow">YOUR ORDER AT A GLANCE</span>
-              <h3>{service?.name || "Make it your next move."}</h3>
-              <dl>
-                <div>
-                  <dt>Quantity</dt>
-                  <dd>{validQuantity ? qty.toLocaleString("en-GB") : "—"}</dd>
-                </div>
-                <div>
-                  <dt>Wallet balance</dt>
-                  <dd>${balance} USD</dd>
-                </div>
-                <div className="boost-total">
-                  <dt>Total</dt>
-                  <dd>
-                    {quoting ? (
-                      <Spinner />
-                    ) : currentQuote ? (
-                      `$${currentQuote.price_usd}`
-                    ) : (
-                      "—"
-                    )}
-                  </dd>
-                </div>
-              </dl>
-              <div className="notice-inline">
-                <ShieldCheck size={14} />
-                Paid from your prepaid USD wallet.
-              </div>
-            </section>
-          </aside>
         </div>
       )}
     </>

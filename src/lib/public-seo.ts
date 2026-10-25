@@ -7,7 +7,7 @@ export const homepageDescription = "Buy followers, likes, views and engagement f
 export const publicSeo: Record<string, [string, string]> = {
   "social-boosting": ["SMM Panel | Buy Followers, Likes & Views", "Buy followers instantly with Boostlier. Explore a cheap Instagram followers panel, low price TikTok likes, YouTube views and Facebook post likes in one easy SMM panel."],
   numbers: ["Temporary Phone Numbers | USA & Global SMS Verification", "Get temporary USA and Global phone numbers for SMS verification. Choose your country and service, receive codes online and manage numbers from one dashboard."],
-  pricing: ["SMM Panel & Temporary Number Prices in USD", "Explore affordable social media growth and temporary number pricing. Compare Boost Account services, USA and Global SMS numbers, long-term rentals and temporary email."],
+  pricing: ["SMM Panel & Temporary Number Prices in USD", "Explore affordable social media growth and temporary number pricing. Compare Boost Socials services, USA and Global SMS numbers, long-term rentals and temporary email."],
   "long-term-rentals": ["Long-term USA Number Rentals | Receive SMS Online", "Rent a USA mobile number for longer-term SMS access. Choose your service and duration, receive messages online and extend manually before expiry."],
   "dedicated-numbers": ["Dedicated Numbers | Service Availability", "Explore Boostlier number services. Dedicated numbers are not currently available; browse USA, Global and long-term number rentals instead."],
   "temporary-email": ["Temporary Email Addresses | 24-Hour Disposable Inbox", "Generate a temporary email address with a 24-hour inbox. Read messages online, renew before expiry and manage addresses with your Boostlier account."],

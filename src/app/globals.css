@@ -3,7 +3,7 @@
 
 .boost-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(270px, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 22px;
   align-items: start;
 }
