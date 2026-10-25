@@ -77,7 +77,8 @@ function CategoryDropdown({
   );
   useEffect(() => {
     if (!open) return;
-    input.current?.focus();
+    if (!window.matchMedia("(pointer: coarse)").matches)
+      input.current?.focus({ preventScroll: true });
     const outside = (event: PointerEvent) => {
       if (!root.current?.contains(event.target as Node)) setOpen(false);
     };
@@ -92,14 +93,15 @@ function CategoryDropdown({
   const choose = (category: string) => {
     onChange(category);
     setOpen(false);
-    trigger.current?.focus();
+    trigger.current?.focus({ preventScroll: true });
   };
   return (
     <div
       className="field category-dropdown"
       ref={root}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+        if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget))
+          setOpen(false);
       }}
       onKeyDown={(event) => {
         if (event.key === "Escape") {

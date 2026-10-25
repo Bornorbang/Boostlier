@@ -7,6 +7,31 @@
   gap: 22px;
   align-items: start;
 }
+.boost-layout > * {
+  min-width: 0;
+  max-width: 100%;
+}
+.boost-builder .panel,
+.boost-builder form,
+.boost-builder .field {
+  min-width: 0;
+  max-width: 100%;
+}
+.boost-builder select {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.boost-summary h3 { overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+  .dash-shell .dash-header { padding-inline: 12px; gap: 8px; }
+  .dash-shell .dash-header-left { min-width: 0; }
+  .dash-header-left > a { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dash-header-left > .mobile-menu { flex-shrink: 0; }
+  .dash-shell .dash-header-right { gap: 6px; flex-shrink: 0; }
+}
 .boost-summary .button {
   width: 100%;
 }
@@ -2759,6 +2784,7 @@ td {
 
 .category-dropdown {
   position: relative;
+  min-width: 0;
 }
 .category-trigger {
   display: flex;
@@ -2778,6 +2804,8 @@ td {
   cursor: pointer;
 }
 .category-trigger span {
+  min-width: 0;
+  flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

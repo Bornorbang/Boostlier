@@ -85,7 +85,8 @@ export function RentalServiceDropdown({
   );
   useEffect(() => {
     if (!open) return;
-    input.current?.focus();
+    if (!window.matchMedia("(pointer: coarse)").matches)
+      input.current?.focus({ preventScroll: true });
     const outside = (event: PointerEvent) => {
       if (!root.current?.contains(event.target as Node)) setOpen(false);
     };
@@ -100,14 +101,15 @@ export function RentalServiceDropdown({
   const choose = (id: string) => {
     onChange(id);
     setOpen(false);
-    trigger.current?.focus();
+    trigger.current?.focus({ preventScroll: true });
   };
   return (
     <div
       className="field category-dropdown"
       ref={root}
       onBlur={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false);
+        if (e.relatedTarget && !e.currentTarget.contains(e.relatedTarget))
+          setOpen(false);
       }}
       onKeyDown={(e) => {
         if (e.key === "Escape") {
