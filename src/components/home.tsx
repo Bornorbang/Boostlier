@@ -3,7 +3,6 @@ import boostlierHero from "../../public/Boostlier-hero.png";
 import Link from "next/link";
 import {
   ArrowUpRight,
-  Check,
   CheckCircle2,
   Search,
   Wallet,
@@ -38,19 +37,11 @@ export function Home() {
             />
             <OrderButton label="Get a number" href="/dashboard/numbers" />
           </div>
-          <div className="hero-trust">
-            <span>
-              <Check size={14} /> No technical setup required
-            </span>
-            <span>
-              <Check size={14} /> One prepaid USD wallet
-            </span>
-          </div>
         </div>
         <div className="hero-art hero-image">
           <Image
             src={boostlierHero}
-            alt="Social promotion illustration with a megaphone and engagement icons"
+            alt={homepageDescription}
             fill
             sizes="(min-width: 1200px) 540px, (min-width: 1024px) 45vw, 1px"
             loading="eager"

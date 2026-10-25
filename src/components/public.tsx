@@ -2,6 +2,7 @@ import { BrandIcon } from "./brand-icon";
 import Link from "next/link";
 import { PublicNav } from "./ui";
 import { faqs } from "@/lib/config";
+import { homepageDescription } from "@/lib/public-seo";
 function configuredLinks(name: string): { label: string; url: string }[] {
   try {
     const values = JSON.parse(process.env[name] || "[]");
@@ -26,7 +27,7 @@ export function Footer() {
             <BrandIcon />
             Boostlier<span className="brand-dot">.</span>
           </Link>
-          <p>Digital services. One account.</p>
+          <p>{homepageDescription}</p>
           {configuredLinks("BUSINESS_SOCIAL_LINKS").map((link) => (
             <a key={link.url} href={link.url} rel="noopener noreferrer">
               {link.label}
