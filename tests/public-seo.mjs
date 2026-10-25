@@ -10,7 +10,7 @@ for(const path of paths){
  for(const [,json] of html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)) JSON.parse(json);
  if(path==='/'){
  assert.equal(title,'Boostlier SMM Panel | Fast &amp; Cheap Social Media Growth');
- assert.ok(html.includes('Boost your social presence instantly. Boostlier offers the cheapest SMM panel for real Instagram followers, TikTok likes, YouTube views, and more. Instant delivery, no technical setup required.'));
+ assert.ok(html.includes('Buy followers, likes, views and engagement for your social media accounts - Facebook, Instagram, Tiktok, Youtube, etc.'));
  }
 }
 const sitemap=await (await fetch('http://localhost:3000/sitemap.xml')).text();

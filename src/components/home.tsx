@@ -13,6 +13,7 @@ import { PublicShell, FAQ, StructuredFAQ } from "./public";
 import { OrderButton } from "./ui";
 import { ServiceChoices } from "./service-choices";
 import { faqs } from "@/lib/config";
+import { homepageDescription } from "@/lib/public-seo";
 
 export function Home() {
   return (
@@ -28,9 +29,7 @@ export function Home() {
             <em>social media growth.</em>
           </h1>
           <p className="hero-description">
-            Boost your social presence instantly. Buy followers, TikTok likes and
-            YouTube views with our easy SMM panel for beginners. Need SMS
-            verification? Get USA and Global temporary numbers too.
+            {homepageDescription}
           </p>
           <div className="hero-actions dual-actions">
             <OrderButton

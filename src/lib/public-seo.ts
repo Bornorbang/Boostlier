@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { site } from "./config";
 
 export const homepageTitle = "Boostlier SMM Panel | Fast & Cheap Social Media Growth";
-export const homepageDescription = "Boost your social presence instantly. Boostlier offers the cheapest SMM panel for real Instagram followers, TikTok likes, YouTube views, and more. Instant delivery, no technical setup required.";
+export const homepageDescription = "Buy followers, likes, views and engagement for your social media accounts - Facebook, Instagram, Tiktok, Youtube, etc.";
 
 export const publicSeo: Record<string, [string, string]> = {
   "social-boosting": ["SMM Panel | Buy Followers, Likes & Views", "Buy followers instantly with Boostlier. Explore a cheap Instagram followers panel, low price TikTok likes, YouTube views and Facebook post likes in one easy SMM panel."],
