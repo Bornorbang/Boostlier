@@ -3196,44 +3196,16 @@ td {
   font-size: 14px;
   letter-spacing: 0.5px;
 }
+.active-numbers-scroll {
+  max-width: 100%;
+  overscroll-behavior-x: contain;
+}
+.active-numbers-scroll:focus-visible {
+  outline: 2px solid var(--green-dark);
+  outline-offset: 3px;
+}
 @media (max-width: 800px) {
-  .rental-table,
-  .rental-table tbody {
-    display: block;
-    width: 100%;
-    white-space: normal;
-  }
-  .rental-table thead {
-    display: none;
-  }
-  .rental-table tr {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    padding: 18px 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .rental-table td {
-    display: block;
-    min-width: 0;
-    border: 0;
-    padding: 0;
-    overflow-wrap: anywhere;
-  }
-  .rental-table td::before {
-    content: attr(data-label);
-    display: block;
-    color: var(--muted);
-    font-size: 10px;
-    margin-bottom: 8px;
-  }
-  .rental-table td[data-label="Number"],
-  .rental-table td[data-label="SMS code"] {
-    grid-column: 1 / -1;
-  }
-  .rental-table td[data-label="Actions"]:empty {
-    display: none;
-  }
+  .number-service-layout .rental-table { min-width: 650px; }
 }
 
 .number-service-layout {
@@ -3595,15 +3567,6 @@ td {
 [data-theme="dark"] .number-status-active {
   color: #86efac;
   background: #14532d;
-}
-@media (max-width: 800px) {
-  .rental-table td[data-label="Code"] {
-    grid-column: 1 / -1;
-  }
-  .rental-table td[data-label="Country"]::before,
-  .rental-table td[data-label="Actions"]::before {
-    display: none;
-  }
 }
 
 .ads-agreement { display: flex; align-items: flex-start; gap: 6px; font-size: 10px !important; line-height: 1.5; margin: 10px 0; }

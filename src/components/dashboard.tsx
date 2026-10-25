@@ -359,7 +359,12 @@ export function Rentals({
       {(error || actionError) && (
         <Alert kind="error">{error || actionError}</Alert>
       )}
-      <div className="table-scroll">
+      <div
+        className={`table-scroll${active ? " active-numbers-scroll" : ""}`}
+        tabIndex={active ? 0 : undefined}
+        role={active ? "region" : undefined}
+        aria-label={active ? "Active and recent numbers" : undefined}
+      >
         <table className={active ? "rental-table" : "rental-history-table"}>
           <thead>
             <tr>
