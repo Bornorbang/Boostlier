@@ -1940,6 +1940,11 @@ td {
   font-size: 11px;
   margin-top: 7px;
 }
+.dash-content:has(.number-tabs) > .page-title p {
+  font-size: 13px;
+  line-height: 1.7;
+  max-width: 680px;
+}
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
