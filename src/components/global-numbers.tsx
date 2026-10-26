@@ -162,17 +162,7 @@ export function GlobalNumbersDashboard() {
       />
       <NumberTabs active="global" />
       {message && <Alert>{message}</Alert>}
-      {error && (
-        <Alert kind="error">
-          {error}
-          <button
-            className="button secondary small"
-            onClick={() => (service ? load() : window.location.reload())}
-          >
-            Refresh prices
-          </button>
-        </Alert>
-      )}
+      {error && <Alert kind="error">{error}</Alert>}
       <div className="number-order-layout number-service-layout global-number-layout">
         <section className="panel number-services">
           <div className="panel-head">
