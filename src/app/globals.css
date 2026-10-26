@@ -84,6 +84,18 @@
   gap: 7px;
   flex-wrap: wrap;
 }
+.boost-order-status.success { background: #dcfce7; color: #166534; }
+.boost-order-status.progress { background: #dbeafe; color: #1e40af; }
+.boost-order-status.waiting { background: #fef3c7; color: #92400e; }
+.boost-order-status.partial { background: #ffedd5; color: #9a3412; }
+.boost-order-status.danger { background: #fee2e2; color: #991b1b; }
+.boost-order-status.review { background: #f3e8ff; color: #6b21a8; }
+[data-theme="dark"] .boost-order-status.success { background: #14532d; color: #86efac; }
+[data-theme="dark"] .boost-order-status.progress { background: #1e3a8a; color: #bfdbfe; }
+[data-theme="dark"] .boost-order-status.waiting { background: #78350f; color: #fde68a; }
+[data-theme="dark"] .boost-order-status.partial { background: #7c2d12; color: #fed7aa; }
+[data-theme="dark"] .boost-order-status.danger { background: #7f1d1d; color: #fecaca; }
+[data-theme="dark"] .boost-order-status.review { background: #581c87; color: #e9d5ff; }
 .boost-pending {
   border-top: 1px solid var(--line);
   padding: 18px 0;

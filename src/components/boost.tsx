@@ -55,6 +55,16 @@ type Listing = {
   total: number;
 };
 const terminal = ["completed", "cancelled", "partial", "rejected"];
+const statusColours: Record<string, string> = {
+  completed: "success",
+  active: "progress",
+  pending: "waiting",
+  partial: "partial",
+  cancelled: "danger",
+  rejected: "danger",
+  failed: "danger",
+  reconciliation: "review",
+};
 
 function CategoryDropdown({
   categories,
@@ -590,7 +600,6 @@ export function Boost({ orders = false }: { orders?: boolean }) {
                       <th>Status</th>
                       <th>Start count</th>
                       <th>Remaining</th>
-                      <th>Refill</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -606,7 +615,9 @@ export function Boost({ orders = false }: { orders?: boolean }) {
                         <td>{o.quantity.toLocaleString("en-GB")}</td>
                         <td>${o.price_usd}</td>
                         <td>
-                          <span className="badge neutral">{o.status}</span>
+                          <span className={`badge boost-order-status ${statusColours[o.status] || "neutral"}`}>
+                            {o.status}
+                          </span>
                           {o.refund_review_required && (
                             <small className="boost-order-id">
                               Wallet refund requires support review
@@ -615,10 +626,6 @@ export function Boost({ orders = false }: { orders?: boolean }) {
                         </td>
                         <td>{o.start_count?.toLocaleString("en-GB") ?? "—"}</td>
                         <td>{o.remaining?.toLocaleString("en-GB") ?? "—"}</td>
-                        <td>
-                          {o.refill?.status ||
-                            (o.refill_supported ? "Available" : "Not offered")}
-                        </td>
                         <td>
                           <div className="boost-row-actions">
                             <button
